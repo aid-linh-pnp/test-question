@@ -645,7 +645,7 @@ if st.session_state["session"] is None:
 
     # Account (ask only once, keep across skills)
     account = st.text_input(
-        "👤 Nhập tên hoặc email của bạn:",
+        "👤 Nhập account của bạn:",
         value=st.session_state["account"],
         key="account_input",
     )
@@ -659,7 +659,7 @@ if st.session_state["session"] is None:
 
     if st.button("🚀 Bắt đầu kiểm tra", key="start_btn"):
         if not account.strip():
-            st.warning("❌ Vui lòng nhập tên hoặc email của bạn.")
+            st.warning("❌ Vui lòng nhập account của bạn.")
         else:
             st.session_state["account"] = account.strip()
             session = AdaptiveTestSession(
