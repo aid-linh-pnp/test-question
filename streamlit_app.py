@@ -149,38 +149,43 @@ class AdaptiveTestSession:
         self.question_history.append(shuffled_q)
         return shuffled_q
 
-    def submit_answer(self, selected_idx: int):
-        if self.is_finished or not self.question_history:
-            return {"error": "No active question"}
-
-        question = self.question_history[-1]
-        correct = question["options"][selected_idx]["isAnswerKey"]
-
-        self.answer_history.append(
-            {
-                "question_id": question["id"],
-                "selected_index": selected_idx,
-                "is_correct": correct,
+        def submit_answer(self, selected_idx: int):
+            """Nhận đáp án và gọi hàm cập nhật trạng thái đúng với seniority."""
+    
+            # Không còn câu hỏi?
+            if self.is_finished or not self.question_history:
+                return {"error": "No active question"}
+    
+            question = self.question_history[-1]
+            correct = question["options"][selected_idx]["isAnswerKey"]
+    
+            # Lưu lịch sử
+            self.answer_history.append(
+                {
+                    "question_id": question["id"],
+                    "selected_index": selected_idx,
+                    "is_correct": correct,
+                }
+            )
+    
+            # --------- Dispatch theo seniority ---------
+            dispatch = {
+                "fresher": self._update_state_after_answer_fresher,
+                "junior":  self._update_state_after_answer_junior,
+                "middle":  self._update_state_after_answer_middle,
+                "senior":  self._update_state_after_answer_senior,
             }
-        )
-        dispatch = {
-            "fresher": self._update_state_after_answer_fresher,
-            "junior":  self._update_state_after_answer_junior,
-            "middle":  self._update_state_after_answer_middle,
-            "senior":  self._update_state_after_answer_senior,
-        }
+    
+            # Bảo vệ: chuẩn hoá khóa
+            key = self.starting_seniority.strip().lower()
+    
+            if key in dispatch:
+                return dispatch[key](correct)
+    
+            # Nếu nằm ngoài 4 giá trị hợp lệ (không nên xảy ra)
+            self._finish_test("UNSUPPORTED_SENIORITY", failed=True)
+            return self._get_result()
 
-        # Dispatch to the correct branching algorithm
-        # if self.starting_seniority == "middle":
-        #     return self._update_state_after_answer_middle(correct)
-        # # Other seniorities are TODO
-        # self._finish_test("UNSUPPORTED_SENIORITY", failed=True)
-        # return self._get_result()
-
-        if self.starting_seniority in dispatch:
-            return dispatch[self.starting_seniority](correct)
-        self._finish_test("UNSUPPORTED_SENIORITY", failed=True)
-        return self._get_result()
 
     def _update_state_after_answer_middle(self, is_correct):
 
