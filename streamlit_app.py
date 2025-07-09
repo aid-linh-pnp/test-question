@@ -639,7 +639,7 @@ if not st.session_state["testing_started"]:
             st.session_state["start_seniority"] = seniority
             st.session_state["skills_queue"] = SKILLS.copy()
             st.session_state["testing_started"] = True
-            st.experimental_rerun()
+            st.rerun()
 
 # -----------------------  Main test loop (auto) --------------------------- #
 else:
@@ -675,7 +675,7 @@ else:
         if st.button("🔄 Làm lại từ đầu"):
             for k in list(st.session_state.keys()):
                 del st.session_state[k]
-            st.experimental_rerun()
+            st.rerun()
 
     # Otherwise handle current skill
     else:
@@ -717,10 +717,10 @@ else:
                     if result.get("error"):
                         st.error(result["error"])
                     if session.is_finished:
-                        st.experimental_rerun()
+                        st.rerun()
                     else:
                         st.session_state["question"] = session.get_next_question()
-                        st.experimental_rerun()
+                        st.rerun()
 
         # Session finished – store & move on automatically -----------------
         else:
@@ -739,4 +739,4 @@ else:
             st.session_state["session"] = None
             st.session_state["question"] = None
             st.session_state["current_skill"] = None
-            st.experimental_rerun()
+            st.rerun()
