@@ -1,0 +1,19 @@
+{
+  "account": "meo meo",
+  "skill": "allskills",
+  "final_result": "COMPLETED",
+  "failed": false,
+  "history": {
+    "account": "meo meo",
+    "seniority": "fresher",
+    "results": {
+      "html": "LEVELF0",
+      "css": "LEVELF3",
+      "javascript": "LEVELF2",
+      "react": "LEVELF1",
+      "github": "LEVELF0"
+    },
+    "timestamp": "2025-07-09T08:54:11.690328"
+  },
+  "timestamp": "2025-07-09T08:54:11.691597"
+}
