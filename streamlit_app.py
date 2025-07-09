@@ -50,9 +50,9 @@ def save_to_github(account: str, skill: str, final_result: str, history: list, f
     res = requests.put(url, headers=headers, json=payload)
 
     if res.status_code in (200, 201):
-        st.success(f"Đã lưu kết quả *{skill}* tại results/{filename}")
+        st.success(f"💾 Đã lưu kết quả *{skill}* tại results/{filename}")
     else:
-        st.error(f"Không thể lưu kết quả *{skill}* lên GitHub. Chi tiết: {res.text}")
+        st.error(f"❌ Không thể lưu kết quả *{skill}* lên GitHub. Chi tiết: {res.text}")
 
 
 def save_result_to_file(account: str, skill: str, result: dict) -> str:
@@ -682,7 +682,7 @@ elif not st.session_state["session"].is_finished:
     }
     lang = lang_map.get(current_skill, "text")
 
-    question_md = format_question_with_code(f"❓ {question['question']}**", lang)
+    question_md = format_question_with_code(f"❓ {question['question']}", lang)
     st.markdown(question_md, unsafe_allow_html=True)
 
     for idx, option in enumerate(question["options"]):
@@ -731,12 +731,29 @@ else:
         # except Exception as e:
         #     st.error(f"❌ Lưu GitHub thất bại: {e}")
 
+        # --- Tạo details cho từng câu ---
+        details = []
+        for q_obj, a_obj in zip(session.question_history, session.answer_history):
+            selected_opt = q_obj["options"][a_obj["selected_index"]]
+            correct_opt  = next(opt for opt in q_obj["options"] if opt["isAnswerKey"])
+            details.append({
+                "question_id": q_obj["id"],
+                "question":   q_obj["question"],
+                "selected":   selected_opt["description"],
+                "correct":    correct_opt["description"],
+                "is_correct": a_obj["is_correct"],
+                "skill":      q_obj["skill"],
+                "seniority":  q_obj["seniority"],
+                "level":      q_obj["level"],
+            })
+        
+        # --- Lưu vào results_per_skill ---
         st.session_state["results_per_skill"][current_skill] = {
             "final_result": result_label,
             "failed": failed_flag,
-            "answer_history": session.answer_history.copy(),
-            "question_history": session.question_history.copy(),   # <-- thêm
+            "details": details,                 # <-- chỉ còn 1 khóa gọn gàng
         }
+
         st.session_state["result_saved"] = True
 
     if st.session_state["skills_queue"]:
@@ -761,14 +778,14 @@ else:
             try:
                 save_result_to_file(account, "allskills", summary)
                 save_to_github(account, "allskills", "COMPLETED", summary, False)
-                st.success("💾 Đã lưu kết quả tổng hợp cho 5 kỹ năng!")
+                st.success("Đã lưu kết quả tổng hợp cho 5 kỹ năng!")
             except Exception as e:
                 st.error(f"Lưu tổng hợp thất bại: {e}")
 
             st.session_state["all_skills_saved"] = True
 
 
-        if st.button("🔄 Làm lại từ đầu", key="restart_all"):
+        if st.button("Làm lại từ đầu", key="restart_all"):
             for key in list(st.session_state.keys()):
                 del st.session_state[key]
             st.rerun()
