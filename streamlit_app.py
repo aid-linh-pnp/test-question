@@ -11,6 +11,54 @@ import re
 # -------------------------------  HELPERS  --------------------------------- #
 ###############################################################################
 
+def save_summary_local(account: str, data: dict) -> str:
+    """
+    Ghi 1 file JSON duy nhất (tên account + thời gian + _summary.json)
+    vào thư mục results/ và trả về đường dẫn.
+    """
+    os.makedirs("results", exist_ok=True)
+    fname = f"{account}_{datetime.now().strftime('%Y%m%d_%H%M%S')}_summary.json"
+    path = os.path.join("results", fname)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+    return path
+
+# ---------------------------------------------------------------------------
+# HELPER: đẩy file tổng hợp lên GitHub
+# ---------------------------------------------------------------------------
+def save_summary_to_github(account: str, data: dict):
+    """
+    Push cùng 1 file JSON lên repo GitHub (cần st.secrets.* đã cấu hình).
+    Chỉ gọi một lần sau khi hoàn tất 5 skill.
+    """
+    # Tạo tên file kèm múi giờ Hà Nội (UTC+7)
+    now_hn = datetime.now(timezone.utc).astimezone(timezone(timedelta(hours=7)))
+    fname = f"{account}_{now_hn.strftime('%Y%m%d_%H%M%S')}_summary.json"
+    path = f"results/{fname}"
+
+    # Mã hoá base64
+    content_str = json.dumps(data, indent=2, ensure_ascii=False)
+    b64 = base64.b64encode(content_str.encode("utf-8")).decode("ascii")
+
+    url = (
+        f"https://api.github.com/repos/"
+        f"{st.secrets.github_username}/{st.secrets.github_repo}/contents/{path}"
+    )
+    headers = {
+        "Authorization": f"Bearer {st.secrets.github_token}",
+        "Accept": "application/vnd.github.v3+json",
+    }
+    payload = {
+        "message": f"Add summary for {account}",
+        "content": b64,
+    }
+
+    res = requests.put(url, headers=headers, json=payload)
+    if res.status_code in (200, 201):
+        st.success(f"💾 Đã lưu tổng hợp lên GitHub: results/{fname}")
+    else:
+        st.error(f"❌ Không thể lưu lên GitHub. Chi tiết: {res.text}")
+
 def format_question_with_code(text: str, lang: str = "javascript") -> str:
     """
     Tìm các đoạn nằm giữa cặp ``` … ``` rồi gắn nhãn ngôn ngữ cho code-block  
@@ -602,6 +650,14 @@ class AdaptiveTestSession:
 
 SKILLS = ["html", "css", "javascript", "react", "github"]
 
+if "app_state" not in st.session_state:          # < thêm từ đây
+    st.session_state.app_state = "choose_meta"   # choose_meta → ask_question → summary
+    st.session_state.skill_idx = 0               # vị trí trong SKILLS
+    st.session_state.sessions = {}               # {skill: AdaptiveTestSession}
+    st.session_state.seniority = "middle"        # sẽ ghi đè khi user chọn
+    st.session_state.account = ""
+    st.session_state.current_question = None
+
 st.set_page_config(page_title="Adaptive Multi‑Skill Quiz", layout="centered")
 st.title("Adaptive Question Demo - FWA.AT (Multi‑Skill)")
 st.markdown("<span style='color:green; font-weight:bold;'>Seniority: fresher, junior, middle, senior</span>", unsafe_allow_html=True)
@@ -619,153 +675,198 @@ questions_data = load_questions()
 
 # --------------------------  SESSION STATE SETUP  --------------------------- #
 
-if "initialized" not in st.session_state:
-    st.session_state["initialized"] = True
-    st.session_state["skills_queue"] = SKILLS.copy()
-    st.session_state["current_skill"] = None
-    st.session_state["results_per_skill"] = {}
-    st.session_state["session"] = None
-    st.session_state["question"] = None
-    st.session_state["account"] = ""
-    st.session_state["engine"] = AdaptiveTestingEngine(questions_data)
-    st.session_state["result_saved"] = False
+# if "initialized" not in st.session_state:
+#     st.session_state["initialized"] = True
+#     st.session_state["skills_queue"] = SKILLS.copy()
+#     st.session_state["current_skill"] = None
+#     st.session_state["results_per_skill"] = {}
+#     st.session_state["session"] = None
+#     st.session_state["question"] = None
+#     st.session_state["account"] = ""
+#     st.session_state["engine"] = AdaptiveTestingEngine(questions_data)
+#     st.session_state["result_saved"] = False
 
-# Move to next skill if needed -----------------------------------------------
-if st.session_state["current_skill"] is None and st.session_state["skills_queue"]:
-    st.session_state["current_skill"] = st.session_state["skills_queue"].pop(0)
+# # Move to next skill if needed -----------------------------------------------
+# if st.session_state["current_skill"] is None and st.session_state["skills_queue"]:
+#     st.session_state["current_skill"] = st.session_state["skills_queue"].pop(0)
 
-current_skill = st.session_state["current_skill"]
+# current_skill = st.session_state["current_skill"]
 
 # --------------------------------------------------------------------------- #
 #  STEP 1 – Start a session for the current skill
 # --------------------------------------------------------------------------- #
 
-if st.session_state["session"] is None:
-    st.header(f"🛠️ Kỹ năng hiện tại: **{current_skill.upper()}**")
+# if st.session_state["session"] is None:
+#     st.header(f"🛠️ Kỹ năng hiện tại: **{current_skill.upper()}**")
 
-    # Account (ask only once, keep across skills)
-    account = st.text_input(
-        "👤 Nhập account của bạn:",
-        value=st.session_state["account"],
-        key="account_input",
-    )
+#     # Account (ask only once, keep across skills)
+#     account = st.text_input(
+#         "👤 Nhập account của bạn:",
+#         value=st.session_state["account"],
+#         key="account_input",
+#     )
+if st.session_state.app_state == "choose_meta":
+    account = st.text_input("👤 Nhập account:", value=st.session_state.account)
 
     # Choose starting seniority for *this* skill
+    # seniority = st.selectbox(
+    #     "Chọn cấp độ bắt đầu:",
+    #     ["fresher", "junior", "middle", "senior"],
+    #     key="seniority_select",
+    # )
     seniority = st.selectbox(
-        "Chọn cấp độ bắt đầu:",
+        "Chọn *một* seniority cho TẤT CẢ kỹ năng:",
         ["fresher", "junior", "middle", "senior"],
-        key="seniority_select",
+        index=["fresher","junior","middle","senior"].index(st.session_state.seniority),
     )
 
-    if st.button("🚀 Bắt đầu kiểm tra", key="start_btn"):
+    # if st.button("🚀 Bắt đầu kiểm tra", key="start_btn"):
+    #     if not account.strip():
+    #         st.warning("❌ Vui lòng nhập account của bạn.")
+    #     else:
+    #         st.session_state["account"] = account.strip()
+    #         session = AdaptiveTestSession(
+    #             engine=st.session_state["engine"],
+    #             skill=current_skill,
+    #             start_seniority=seniority,
+    #         )
+    #         st.session_state["session"] = session
+    #         st.session_state["question"] = session.get_next_question()
+    #         st.rerun()
+    if st.button("🚀 Bắt đầu 5 kỹ năng"):
         if not account.strip():
-            st.warning("❌ Vui lòng nhập account của bạn.")
+            st.warning("❌ Vui lòng nhập account.")
         else:
-            st.session_state["account"] = account.strip()
-            session = AdaptiveTestSession(
-                engine=st.session_state["engine"],
-                skill=current_skill,
-                start_seniority=seniority,
+            st.session_state.account = account.strip()
+            st.session_state.seniority = seniority
+            first_skill = SKILLS[0]
+            st.session_state.sessions[first_skill] = AdaptiveTestSession(
+                st.session_state.engine, first_skill, seniority
             )
-            st.session_state["session"] = session
-            st.session_state["question"] = session.get_next_question()
+            st.session_state.app_state = "ask_question"
             st.rerun()
 
 # --------------------------------------------------------------------------- #
 #  STEP 2 – Display question & accept answer
 # --------------------------------------------------------------------------- #
 
-elif not st.session_state["session"].is_finished:
-    session: AdaptiveTestSession = st.session_state["session"]
-    question = st.session_state["question"]
+# ========== FLOW ask_question ==========
+elif st.session_state.app_state == "ask_question":
+    skill = SKILLS[st.session_state.skill_idx]
+    session = st.session_state.sessions[skill]
 
-    level_str = AdaptiveTestingEngine.format_level_string(
-        session.current_seniority, session.current_level
-    )
+    # Nếu skill này xong thì chuyển skill kế / hoặc sang summary
+    if session.finished:
+        st.session_state.skill_idx += 1
+        if st.session_state.skill_idx < len(SKILLS):
+            next_skill = SKILLS[st.session_state.skill_idx]
+            st.session_state.sessions[next_skill] = AdaptiveTestSession(
+                st.session_state.engine, next_skill, st.session_state.seniority
+            )
+            st.rerun()
+        else:
+            st.session_state.app_state = "summary"
+            st.rerun()
 
-    st.subheader(f"📌 Câu hỏi mức độ: {level_str} ({current_skill})")
-    lang_map = {
-        "html": "html",
-        "css": "css",
-        "javascript": "javascript",
-        "react": "javascript",
-        "github": "bash",          # ví dụ
-    }
-    lang = lang_map.get(current_skill, "text")
+    # Nếu chưa xong thì hiển thị câu hỏi
+    else:
+        if st.session_state.current_question is None:
+            st.session_state.current_question = session.next_question()
 
-    question_md = format_question_with_code(f"**❓ {question['question']}**", lang)
-    st.markdown(question_md, unsafe_allow_html=True)
+        q = st.session_state.current_question
+        level_code = AdaptiveTestingEngine.level_code(session.seniority, session.level)
+        st.subheader(f"🛠️ {skill.upper()} – Cấp độ {level_code}")
 
-    for idx, option in enumerate(question["options"]):
-        if st.button(option["description"], key=f"opt_{idx}"):
-            result = session.submit_answer(idx)
-            if result.get("answer_history"):
-                if result["answer_history"]["is_correct"]:
-                    st.success("✅ ĐÚNG")
-                else:
-                    st.error("❌ SAI")
+        lang_map = {"html":"html","css":"css","javascript":"javascript","react":"javascript","github":"bash"}
+        st.markdown(format_question_with_code(f"**❓ {q['question']}**",
+                   lang_map.get(skill,"text")), unsafe_allow_html=True)
 
-            if not result["is_finished"]:
-                st.session_state["question"] = session.get_next_question()
-                st.rerun()
-            else:
+        for i,opt in enumerate(q["options"]):
+            if st.button(opt["description"], key=f"{skill}_{i}"):
+                result = session.submit(i)
+                st.success("✅ ĐÚNG") if result["answer_history"]["is_correct"] else st.error("❌ SAI")
+                st.session_state.current_question = None
                 st.rerun()
 
 # --------------------------------------------------------------------------- #
 #  STEP 3 – Session finished (save + move on / summary)
 # --------------------------------------------------------------------------- #
+# ========== MÀN HÌNH summary ==========
+elif st.session_state.app_state == "summary":
+    st.header("📊 Kết quả 5 kỹ năng")
+    summary = {s: {"final_result": sess.final_result,
+                   "failed": sess.failed,
+                   "answers": sess.answer_history}
+               for s, sess in st.session_state.sessions.items()}
+    st.table({k: v["final_result"] for k, v in summary.items()})
 
-else:
-    session: AdaptiveTestSession = st.session_state["session"]
-    result_label = session.final_result
-    failed_flag = session.failed
+    if st.button("💾 Lưu KQ 1 lần"):
+        data = {"account": st.session_state.account,
+                "seniority": st.session_state.seniority,
+                "results": summary,
+                "timestamp": datetime.now().isoformat()}
+        local_path = save_summary_local(st.session_state.account, data)
+        st.success(f"Đã lưu cục bộ: {local_path}")
+        save_summary_to_github(st.session_state.account, data)
 
-    st.success("🎉 Hoàn thành bài kiểm tra cho kỹ năng này!")
-    st.write(f"🏁 Kết quả **{current_skill.upper()}**: **{result_label}**")
+    if st.button("🔄 Làm lại"):
+        for k in list(st.session_state.keys()):
+            del st.session_state[k]
+        st.rerun()
 
-    # Save only once per skill ---------------------------------------------
-    if not st.session_state["result_saved"]:
-        account = st.session_state["account"]
-        final_result_dict = {
-            "account": account,
-            "skill": current_skill,
-            "final_result": result_label,
-            "failed": failed_flag,
-            "answer_history": session.answer_history,
-            "datetime": datetime.now().isoformat(),
-        }
 
-        try:
-            local_path = save_result_to_file(account, current_skill, final_result_dict)
-            # st.info(f"💾 Đã lưu file cục bộ: {local_path}")
-        except Exception as e:
-            st.error(f"❌ Lưu file cục bộ thất bại: {e}")
 
-        try:
-            save_to_github(account, current_skill, result_label, session.answer_history, failed_flag)
-        except Exception as e:
-            st.error(f"❌ Lưu GitHub thất bại: {e}")
+# else:
+#     session: AdaptiveTestSession = st.session_state["session"]
+#     result_label = session.final_result
+#     failed_flag = session.failed
 
-        st.session_state["results_per_skill"][current_skill] = result_label
-        st.session_state["result_saved"] = True
+#     st.success("🎉 Hoàn thành bài kiểm tra cho kỹ năng này!")
+#     st.write(f"🏁 Kết quả **{current_skill.upper()}**: **{result_label}**")
 
-    # Continue or finish ----------------------------------------------------
-    if st.session_state["skills_queue"]:
-        if st.button("➡️ Tiếp tục kỹ năng kế tiếp", key="next_skill_btn"):
-            # Reset per‑skill state, keep account & summary
-            st.session_state["session"] = None
-            st.session_state["question"] = None
-            st.session_state["result_saved"] = False
-            st.session_state["current_skill"] = None  # Trigger pop in next cycle
-            st.rerun()
-    else:
-        st.header("📊 Tổng hợp kết quả tất cả kỹ năng")
-        st.table(st.session_state["results_per_skill"])
+#     # Save only once per skill ---------------------------------------------
+#     if not st.session_state["result_saved"]:
+#         account = st.session_state["account"]
+#         final_result_dict = {
+#             "account": account,
+#             "skill": current_skill,
+#             "final_result": result_label,
+#             "failed": failed_flag,
+#             "answer_history": session.answer_history,
+#             "datetime": datetime.now().isoformat(),
+#         }
 
-        # Optionally allow restart ------------------------------------------------
-        if st.button("🔄 Làm lại từ đầu", key="restart_all"):
-            for key in list(st.session_state.keys()):
-                del st.session_state[key]
-            st.rerun()
+#         try:
+#             local_path = save_result_to_file(account, current_skill, final_result_dict)
+#             # st.info(f"💾 Đã lưu file cục bộ: {local_path}")
+#         except Exception as e:
+#             st.error(f"❌ Lưu file cục bộ thất bại: {e}")
 
-# final đang chạy
+#         try:
+#             save_to_github(account, current_skill, result_label, session.answer_history, failed_flag)
+#         except Exception as e:
+#             st.error(f"❌ Lưu GitHub thất bại: {e}")
+
+#         st.session_state["results_per_skill"][current_skill] = result_label
+#         st.session_state["result_saved"] = True
+
+#     # Continue or finish ----------------------------------------------------
+#     if st.session_state["skills_queue"]:
+#         if st.button("➡️ Tiếp tục kỹ năng kế tiếp", key="next_skill_btn"):
+#             # Reset per‑skill state, keep account & summary
+#             st.session_state["session"] = None
+#             st.session_state["question"] = None
+#             st.session_state["result_saved"] = False
+#             st.session_state["current_skill"] = None  # Trigger pop in next cycle
+#             st.rerun()
+#     else:
+#         st.header("📊 Tổng hợp kết quả tất cả kỹ năng")
+#         st.table(st.session_state["results_per_skill"])
+
+#         # Optionally allow restart ------------------------------------------------
+#         if st.button("🔄 Làm lại từ đầu", key="restart_all"):
+#             for key in list(st.session_state.keys()):
+#                 del st.session_state[key]
+#             st.rerun()
+
+# final
