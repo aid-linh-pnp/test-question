@@ -672,6 +672,9 @@ def load_questions():
         return json.load(f_in)
 
 questions_data = load_questions()
+engine = AdaptiveTestingEngine(questions_data)
+if "engine" not in st.session_state:
+    st.session_state.engine = engine
 
 # --------------------------  SESSION STATE SETUP  --------------------------- #
 
