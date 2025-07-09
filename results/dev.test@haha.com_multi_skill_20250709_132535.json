@@ -1,0 +1,80 @@
+{
+  "account": "dev.test@haha.com",
+  "skill": "multi_skill",
+  "final_result": "html:UNSUPPORTED_SENIORITY | css:UNSUPPORTED_SENIORITY | javascript:UNSUPPORTED_SENIORITY | react:UNSUPPORTED_SENIORITY | github:UNSUPPORTED_SENIORITY",
+  "failed": false,
+  "history": {
+    "account": "dev.test@haha.com",
+    "results": [
+      {
+        "skill": "html",
+        "final_result": "UNSUPPORTED_SENIORITY",
+        "failed": true,
+        "answer_history": [
+          {
+            "question_id": "137",
+            "selected_index": 2,
+            "is_correct": true
+          }
+        ]
+      },
+      {
+        "skill": "css",
+        "final_result": "UNSUPPORTED_SENIORITY",
+        "failed": true,
+        "answer_history": [
+          {
+            "question_id": "238",
+            "selected_index": 2,
+            "is_correct": false
+          }
+        ]
+      },
+      {
+        "skill": "javascript",
+        "final_result": "UNSUPPORTED_SENIORITY",
+        "failed": true,
+        "answer_history": [
+          {
+            "question_id": "339",
+            "selected_index": 0,
+            "is_correct": true
+          }
+        ]
+      },
+      {
+        "skill": "react",
+        "final_result": "UNSUPPORTED_SENIORITY",
+        "failed": true,
+        "answer_history": [
+          {
+            "question_id": "38",
+            "selected_index": 1,
+            "is_correct": false
+          }
+        ]
+      },
+      {
+        "skill": "github",
+        "final_result": "UNSUPPORTED_SENIORITY",
+        "failed": true,
+        "answer_history": [
+          {
+            "question_id": "439",
+            "selected_index": 1,
+            "is_correct": false
+          }
+        ]
+      }
+    ],
+    "summary": {
+      "html": "UNSUPPORTED_SENIORITY",
+      "css": "UNSUPPORTED_SENIORITY",
+      "javascript": "UNSUPPORTED_SENIORITY",
+      "react": "UNSUPPORTED_SENIORITY",
+      "github": "UNSUPPORTED_SENIORITY"
+    },
+    "timestamp": "2025-07-09T06:25:35.180683"
+  },
+  "timestamp": "2025-07-09T13:25:35.181778+07:00"
+}
