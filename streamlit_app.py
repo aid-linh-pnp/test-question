@@ -732,21 +732,7 @@ else:
         #     st.error(f"❌ Lưu GitHub thất bại: {e}")
 
         # --- Tạo details cho từng câu ---
-        details = []
-        for q_obj, a_obj in zip(session.question_history, session.answer_history):
-            selected_opt = q_obj["options"][a_obj["selected_index"]]
-            correct_opt  = next(opt for opt in q_obj["options"] if opt["isAnswerKey"])
-            details.append({
-                "question_id": q_obj["id"],
-                "question":   q_obj["question"],
-                "selected":   selected_opt["description"],
-                "correct":    correct_opt["description"],
-                "is_correct": a_obj["is_correct"],
-                "skill":      q_obj["skill"],
-                "seniority":  q_obj["seniority"],
-                "level":      q_obj["level"],
-            })
-
+        st.session_state["results_per_skill"][current_skill] = result_label
         st.session_state["result_saved"] = True
 
     if st.session_state["skills_queue"]:
