@@ -620,7 +620,7 @@ if st.session_state["session"] is None:
     if st.session_state.get("seniority") is None:
         # 1.1 Nhập account (chỉ lần đầu)
         account = st.text_input(
-            "👤 Nhập account của bạn:",
+            "Nhập account của bạn:",
             value=st.session_state.get("account", ""),
             key="account_input",
         )
