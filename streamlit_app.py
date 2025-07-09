@@ -616,42 +616,52 @@ current_skill = st.session_state["current_skill"]
 if st.session_state["session"] is None:
     st.header(f"🛠️ Kỹ năng hiện tại: **{current_skill.upper()}**")
 
-    # Account (ask only once, keep across skills)
-    account = st.text_input(
-        "👤 Nhập account của bạn:",
-        value=st.session_state["account"],
-        key="account_input",
-    )
+    # ----- CASE 1: LẦN ĐẦU TIÊN (chưa có seniority) -----
+    if st.session_state.get("seniority") is None:
+        # 1.1 Nhập account (chỉ lần đầu)
+        account = st.text_input(
+            "👤 Nhập account của bạn:",
+            value=st.session_state.get("account", ""),
+            key="account_input",
+        )
 
-    # Choose starting seniority for *this* skill
-    if st.session_state["seniority"] is None:
+        # 1.2 Chọn seniority (chỉ lần đầu)
         seniority = st.selectbox(
             "Chọn cấp độ bắt đầu:",
             ["fresher", "junior", "middle", "senior"],
             key="seniority_select",
         )
+
+        # 1.3 Nút Bắt đầu – vẫn cần cho lần đầu
+        if st.button("🚀 Bắt đầu kiểm tra", key="start_btn"):
+            if not account.strip():
+                st.warning("❌ Vui lòng nhập account của bạn.")
+            else:
+                # Ghi cố định account & seniority
+                st.session_state["account"] = account.strip()
+                st.session_state["seniority"] = seniority
+
+                # Tạo phiên kiểm tra cho skill đầu tiên
+                session = AdaptiveTestSession(
+                    engine=st.session_state["engine"],
+                    skill=current_skill,
+                    start_seniority=seniority,
+                )
+                st.session_state["session"] = session
+                st.session_state["question"] = session.get_next_question()
+                st.rerun()
+
+    # ----- CASE 2: ĐÃ CÓ seniority & account (các skill tiếp theo) -----
     else:
-        seniority = st.session_state["seniority"]   # Đã khóa từ trước  
-
-    if st.button("🚀 Bắt đầu kiểm tra", key="start_btn"):
-        if not account.strip():
-            st.warning("❌ Vui lòng nhập account của bạn.")
-        else:
-            st.session_state["account"] = account.strip()
-
-            # Lưu seniority đúng **một lần** cho toàn bộ 5 skill
-            if st.session_state.get("seniority") is None:
-                st.session_state["seniority"] = seniority   # seniority lấy từ selectbox lần đầu
-
-            # Luôn dùng seniority đã khóa
-            session = AdaptiveTestSession(
-                engine=st.session_state["engine"],
-                skill=current_skill,
-                start_seniority=st.session_state["seniority"],
-            )
-            st.session_state["session"] = session
-            st.session_state["question"] = session.get_next_question()
-            st.rerun()
+        # Tự động tạo session, KHÔNG hiển thị input/nút
+        session = AdaptiveTestSession(
+            engine=st.session_state["engine"],
+            skill=current_skill,
+            start_seniority=st.session_state["seniority"],
+        )
+        st.session_state["session"] = session
+        st.session_state["question"] = session.get_next_question()
+        st.rerun()
 
 
 elif not st.session_state["session"].is_finished:
