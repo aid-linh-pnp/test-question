@@ -638,7 +638,7 @@ if not st.session_state["testing_started"]:
             st.warning("❌ Please enter your account.")
         else:
             st.session_state["account"] = account.strip()
-            st.session_state["start_seniority"] = seniority
+            st.session_state["start_seniority"] = seniority_choice
             st.session_state["skills_queue"] = SKILLS.copy()
             st.session_state["testing_started"] = True
             st.rerun()
