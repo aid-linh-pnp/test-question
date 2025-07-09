@@ -1,0 +1,598 @@
+{
+  "account": "dfdgfd",
+  "skill": "allskills",
+  "final_result": "COMPLETED",
+  "failed": false,
+  "history": {
+    "account": "dfdgfd",
+    "seniority": "senior",
+    "results": {
+      "html": {
+        "final_result": "LEVELM0",
+        "failed": true,
+        "answer_history": [
+          {
+            "question_id": "190",
+            "selected_index": 1,
+            "is_correct": false
+          },
+          {
+            "question_id": "177",
+            "selected_index": 0,
+            "is_correct": false
+          },
+          {
+            "question_id": "161",
+            "selected_index": 0,
+            "is_correct": false
+          },
+          {
+            "question_id": "151",
+            "selected_index": 2,
+            "is_correct": false
+          }
+        ],
+        "question_history": [
+          {
+            "id": "190",
+            "skill": "html",
+            "category": "programming language",
+            "seniority": "senior",
+            "level": 3,
+            "type": "multiple_choice",
+            "question": "A development team is designing a reusable blog component. They want the main content to be dynamically injected while maintaining semantic HTML. Which of the following best describes how to achieve this using the `<slot>` element in a Web Component?",
+            "options": [
+              {
+                "description": "Hard-code the content inside the shadow DOM.",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Replace `<slot>` with `<div>` for better styling.",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Use JavaScript to replace the `<slot>` element at runtime.",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Place `<slot></slot>` in the shadow DOM to allow light DOM content to be projected into the component.",
+                "isAnswerKey": true
+              }
+            ]
+          },
+          {
+            "id": "177",
+            "skill": "html",
+            "category": "programming language",
+            "seniority": "senior",
+            "level": 1,
+            "type": "multiple_choice",
+            "question": "Review the following snippet:\n```\n<figure>\n  <img src=\"scenery.jpg\" alt=\"A beautiful scenery\">\n  <figcaption>A beautiful scenery</figcaption>\n</figure>\n```\nWhat best describes the purpose of the `<figure>` element in HTML5?",
+            "options": [
+              {
+                "description": "It defines a section of highlighted text.",
+                "isAnswerKey": false
+              },
+              {
+                "description": "It groups navigation links together.",
+                "isAnswerKey": false
+              },
+              {
+                "description": "It is used for self-contained content, often with an optional caption, that can be moved independently.",
+                "isAnswerKey": true
+              },
+              {
+                "description": "It is a container for tabular data.",
+                "isAnswerKey": false
+              }
+            ]
+          },
+          {
+            "id": "161",
+            "skill": "html",
+            "category": "programming language",
+            "seniority": "middle",
+            "level": 3,
+            "type": "multiple_choice",
+            "question": "Consider the following two-file setup for a webpage:\n\nHTML file:\n```\n<!DOCTYPE html>\n<html>\n<head>\n  <title>Page</title>\n  <script src=\"app.js\"></script>\n</head>\n<body>\n  <div id=\"content\"></div>\n</body>\n</html>\n```\n\napp.js:\n```\ndocument.getElementById('content').innerHTML = \"Hello, World!\";\n```\n\nIf the content is not updated as expected, what is the most likely issue?",
+            "options": [
+              {
+                "description": "The div id is misspelled in the HTML file.",
+                "isAnswerKey": false
+              },
+              {
+                "description": "The JavaScript file is missing from the server.",
+                "isAnswerKey": false
+              },
+              {
+                "description": "The browser does not support the innerHTML property.",
+                "isAnswerKey": false
+              },
+              {
+                "description": "The script runs before the DOM is fully parsed.",
+                "isAnswerKey": true
+              }
+            ]
+          },
+          {
+            "id": "151",
+            "skill": "html",
+            "category": "programming language",
+            "seniority": "middle",
+            "level": 1,
+            "type": "multiple_choice",
+            "question": "Examine the following HTML snippet:\n```\n<video width=\"320\" height=\"240\" controls>\n  <source src=\"movie.mp4\" type=\"video/mp4\">\n  Your browser does not support the video tag.\n</video>\n```\n\nWhat is the purpose of the 'controls' attribute in the video tag?",
+            "options": [
+              {
+                "description": "It displays the default video playback controls.",
+                "isAnswerKey": true
+              },
+              {
+                "description": "It loads a custom control library automatically.",
+                "isAnswerKey": false
+              },
+              {
+                "description": "It sets the playback speed of the video.",
+                "isAnswerKey": false
+              },
+              {
+                "description": "It disables all browser playback controls.",
+                "isAnswerKey": false
+              }
+            ]
+          }
+        ]
+      },
+      "css": {
+        "final_result": "LEVELS5",
+        "failed": false,
+        "answer_history": [
+          {
+            "question_id": "290",
+            "selected_index": 1,
+            "is_correct": true
+          },
+          {
+            "question_id": "297",
+            "selected_index": 3,
+            "is_correct": true
+          }
+        ],
+        "question_history": [
+          {
+            "id": "290",
+            "skill": "css",
+            "category": "programming language",
+            "seniority": "senior",
+            "level": 3,
+            "type": "multiple_choice",
+            "question": "Given the following SCSS snippet for theme configuration, which refactor would enhance its configurability in a large-scale application?\n```scss\n$primary-color: blue;\n$secondary-color: gray;\n\n.button {\n  background-color: $primary-color;\n  &:hover {\n    background-color: $secondary-color;\n  }\n}\n```",
+            "options": [
+              {
+                "description": "Convert the SCSS to plain CSS",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Utilize a map for theme colors to allow dynamic theme switching",
+                "isAnswerKey": true
+              },
+              {
+                "description": "Replace variables with hardcoded values",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Eliminate nesting to flatten the structure",
+                "isAnswerKey": false
+              }
+            ]
+          },
+          {
+            "id": "297",
+            "skill": "css",
+            "category": "programming language",
+            "seniority": "senior",
+            "level": 5,
+            "type": "multiple_choice",
+            "question": "In a scenario where multiple teams share a common CSS framework that suffers from specificity conflicts and maintenance challenges, review the code snippet below. Which architectural improvement would most effectively standardize behavior across teams?\n```css\n/* Global styles */\n.button,\n.btn {\n  background: #007bff;\n  color: white;\n}\n```",
+            "options": [
+              {
+                "description": "Allow each team to define its own naming conventions",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Duplicate styles for each team to meet their individual needs",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Remove global styles and rely solely on inline styling",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Consolidate naming conventions using a strict BEM or Atomic CSS approach enforced via linting",
+                "isAnswerKey": true
+              }
+            ]
+          }
+        ]
+      },
+      "javascript": {
+        "final_result": "LEVELS1",
+        "failed": false,
+        "answer_history": [
+          {
+            "question_id": "389",
+            "selected_index": 2,
+            "is_correct": false
+          },
+          {
+            "question_id": "376",
+            "selected_index": 1,
+            "is_correct": true
+          },
+          {
+            "question_id": "382",
+            "selected_index": 1,
+            "is_correct": false
+          }
+        ],
+        "question_history": [
+          {
+            "id": "389",
+            "skill": "javascript",
+            "category": "programming language",
+            "seniority": "senior",
+            "level": 3,
+            "type": "multiple_choice",
+            "question": "Review the plugin architecture implemented in the snippet below. What design concept does this approach best illustrate?\n\n```javascript\nclass Application {\n  constructor() {\n    this.plugins = [];\n  }\n  register(plugin) {\n    this.plugins.push(plugin);\n    plugin.init(this);\n  }\n}\n\nconst authPlugin = {\n  init(app) {\n    app.authenticate = () => console.log('Authenticated');\n  }\n};\n\nconst app = new Application();\napp.register(authPlugin);\napp.authenticate();\n```\n",
+            "options": [
+              {
+                "description": "Singleton Pattern",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Plugin Pattern",
+                "isAnswerKey": true
+              },
+              {
+                "description": "Factory Pattern",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Observer Pattern",
+                "isAnswerKey": false
+              }
+            ]
+          },
+          {
+            "id": "376",
+            "skill": "javascript",
+            "category": "programming language",
+            "seniority": "senior",
+            "level": 1,
+            "type": "multiple_choice",
+            "question": "Consider the following JavaScript code snippet. Which design pattern is being used to ensure that only one instance of a Logger is created?\n\n```javascript\nlet Logger = (function() {\n  let instance;\n  function createInstance() {\n    return { log: function(msg) { console.log(msg); } };\n  }\n  return {\n    getInstance: function() {\n      if (!instance) {\n        instance = createInstance();\n      }\n      return instance;\n    }\n  };\n})();\n\nconst logger1 = Logger.getInstance();\nconst logger2 = Logger.getInstance();\n```\n",
+            "options": [
+              {
+                "description": "Factory Pattern",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Singleton Pattern",
+                "isAnswerKey": true
+              },
+              {
+                "description": "Module Pattern",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Observer Pattern",
+                "isAnswerKey": false
+              }
+            ]
+          },
+          {
+            "id": "382",
+            "skill": "javascript",
+            "category": "programming language",
+            "seniority": "senior",
+            "level": 2,
+            "type": "multiple_choice",
+            "question": "Consider the following code snippet simulating a withdrawal operation. What deep technical issue might arise when two withdrawals are executed concurrently?\n\n```javascript\nlet balance = 100;\n\nfunction withdraw(amount) {\n  if (balance >= amount) {\n    setTimeout(() => {\n      balance -= amount;\n      console.log(`Withdrawn ${amount}, new balance: ${balance}`);\n    }, Math.random() * 100);\n  }\n}\n\nwithdraw(80);\nwithdraw(50);\n```\n",
+            "options": [
+              {
+                "description": "Synchronous blocking of the event loop",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Undefined behavior in setTimeout callback",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Race condition from delayed state updates",
+                "isAnswerKey": true
+              },
+              {
+                "description": "Memory leak due to setTimeout",
+                "isAnswerKey": false
+              }
+            ]
+          }
+        ]
+      },
+      "react": {
+        "final_result": "LEVELM4",
+        "failed": false,
+        "answer_history": [
+          {
+            "question_id": "87",
+            "selected_index": 0,
+            "is_correct": false
+          },
+          {
+            "question_id": "80",
+            "selected_index": 0,
+            "is_correct": false
+          },
+          {
+            "question_id": "64",
+            "selected_index": 1,
+            "is_correct": true
+          },
+          {
+            "question_id": "74",
+            "selected_index": 1,
+            "is_correct": false
+          },
+          {
+            "question_id": "66",
+            "selected_index": 2,
+            "is_correct": true
+          }
+        ],
+        "question_history": [
+          {
+            "id": "87",
+            "skill": "react",
+            "category": "framework",
+            "seniority": "senior",
+            "level": 3,
+            "type": "multiple_choice",
+            "question": "Consider the following PluginManager implementation:\n\n```\nclass PluginManager {\n  constructor() {\n    this.plugins = [];\n  }\n  \n  register(plugin) {\n    if (typeof plugin.apply === 'function') {\n      this.plugins.push(plugin);\n    }\n  }\n  \n  run(context) {\n    this.plugins.forEach(plugin => plugin.apply(context));\n  }\n}\n```\n\nThis design is most closely associated with which architectural approach?",
+            "options": [
+              {
+                "description": "Observer Pattern",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Plugin Architecture with Inversion of Control",
+                "isAnswerKey": true
+              },
+              {
+                "description": "Strategy Pattern",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Facade Pattern",
+                "isAnswerKey": false
+              }
+            ]
+          },
+          {
+            "id": "80",
+            "skill": "react",
+            "category": "framework",
+            "seniority": "senior",
+            "level": 1,
+            "type": "multiple_choice",
+            "question": "Review the following code snippet:\n\n```\nclass ErrorBoundary extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = { hasError: false };\n  }\n\n  static getDerivedStateFromError(error) {\n    return { hasError: true };\n  }\n\n  componentDidCatch(error, info) {\n    // Log error\n  }\n\n  render() {\n    return this.state.hasError ? <FallbackComponent /> : this.props.children;\n  }\n}\n```\n\nWhich pattern does the snippet above demonstrate in handling runtime errors?",
+            "options": [
+              {
+                "description": "Render Props",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Container/Presentational Separation",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Error Boundary Pattern",
+                "isAnswerKey": true
+              },
+              {
+                "description": "Higher Order Component",
+                "isAnswerKey": false
+              }
+            ]
+          },
+          {
+            "id": "64",
+            "skill": "react",
+            "category": "framework",
+            "seniority": "middle",
+            "level": 3,
+            "type": "multiple_choice",
+            "question": "Evaluate the multi-file component structure below:\n```\n/* File: Parent.js */\nimport React, { useState } from 'react';\nimport Child from './Child';\n\nfunction Parent() {\n  const [value, setValue] = useState(0);\n  return <Child value={value} setValue={setValue} />;\n}\n\nexport default Parent;\n```\n```\n/* File: Child.js */\nimport React from 'react';\nimport Grandchild from './Grandchild';\n\nfunction Child({ value, setValue }) {\n  return <Grandchild value={value} setValue={setValue} />;\n}\n\nexport default Child;\n```\n```\n/* File: Grandchild.js */\nimport React from 'react';\n\nfunction Grandchild({ value, setValue }) {\n  return (\n    <button onClick={() => setValue(value + 1)}>\n      Increase: {val}\n    </button>\n  );\n}\n\nexport default Grandchild;\n```\nWhat is the bug in the multi-file component communication?",
+            "options": [
+              {
+                "description": "The Child component fails to pass the 'value' prop.",
+                "isAnswerKey": false
+              },
+              {
+                "description": "The Grandchild component incorrectly references 'val' instead of 'value'.",
+                "isAnswerKey": true
+              },
+              {
+                "description": "The Parent component does not pass the state update function.",
+                "isAnswerKey": false
+              },
+              {
+                "description": "The components are missing React.Fragment wrappers.",
+                "isAnswerKey": false
+              }
+            ]
+          },
+          {
+            "id": "74",
+            "skill": "react",
+            "category": "framework",
+            "seniority": "middle",
+            "level": 5,
+            "type": "multiple_choice",
+            "question": "Examine the following snippet:\n```\nimport React from 'react';\n\nconst ServiceContext = React.createContext();\n\nfunction ServiceProvider({ service, children }) {\n  return (\n    <ServiceContext.Provider value={service}>\n      {children}\n    </ServiceContext.Provider>\n  );\n}\n\nexport { ServiceProvider, ServiceContext };\n```\nWhich design pattern is illustrated here and what is its main advantage in managing dependencies?",
+            "options": [
+              {
+                "description": "Dependency Injection; it allows components to receive services without hard-coded dependencies.",
+                "isAnswerKey": true
+              },
+              {
+                "description": "Command Pattern; it encapsulates service requests as objects.",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Singleton Pattern; it guarantees a single instance of a service.",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Strategy Pattern; it enables swapping of service implementations at runtime.",
+                "isAnswerKey": false
+              }
+            ]
+          },
+          {
+            "id": "66",
+            "skill": "react",
+            "category": "framework",
+            "seniority": "middle",
+            "level": 4,
+            "type": "multiple_choice",
+            "question": "Review the following List component:\n```\nimport React from 'react';\n\nfunction List({ items }) {\n  return (\n    <ul>\n      {items.map(item => <li key={item.id} onClick={() => console.log(item.name)}>{item.name}</li>)}\n    </ul>\n  );\n}\n\nexport default List;\n```\nWhich refactoring improvement can optimize performance in the above List component?",
+            "options": [
+              {
+                "description": "Remove the key attribute from list items.",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Replace the map function with a for loop.",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Wrap the inline onClick handler in useCallback to avoid recreating the function on every render.",
+                "isAnswerKey": true
+              },
+              {
+                "description": "Convert the component into a class-based component.",
+                "isAnswerKey": false
+              }
+            ]
+          }
+        ]
+      },
+      "github": {
+        "final_result": "LEVELS3",
+        "failed": false,
+        "answer_history": [
+          {
+            "question_id": "487",
+            "selected_index": 1,
+            "is_correct": true
+          },
+          {
+            "question_id": "498",
+            "selected_index": 2,
+            "is_correct": false
+          },
+          {
+            "question_id": "494",
+            "selected_index": 1,
+            "is_correct": false
+          }
+        ],
+        "question_history": [
+          {
+            "id": "487",
+            "skill": "github",
+            "category": "version control",
+            "seniority": "senior",
+            "level": 3,
+            "type": "multiple_choice",
+            "question": "Review the following Python script used as a Git post-commit hook. To enable support for multiple post-commit actions, which refactoring approach is most scalable?\n```\n#!/usr/bin/env python3\nimport subprocess\n\ndef post_commit():\n    commit_hash = subprocess.check_output(['git', 'rev-parse', 'HEAD']).strip()\n    subprocess.call(['curl', '-X', 'POST', 'http://ci.example.com/build', '-d', commit_hash])\n\nif __name__ == '__main__':\n    post_commit()\n```",
+            "options": [
+              {
+                "description": "Migrate to an alternative version control system",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Incorporate a plugin framework to dynamically load post-commit actions",
+                "isAnswerKey": true
+              },
+              {
+                "description": "Use a chain-of-responsibility pattern",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Hard-code additional subprocess calls",
+                "isAnswerKey": false
+              }
+            ]
+          },
+          {
+            "id": "498",
+            "skill": "github",
+            "category": "version control",
+            "seniority": "senior",
+            "level": 5,
+            "type": "multiple_choice",
+            "question": "Frequent stalls during large merge operations have raised performance concerns. A senior engineer suspects Git attributes for large binary files are a bottleneck. Consider the following .gitattributes snippet:\n```\n*.png filter=lfs diff=lfs merge=lfs -text\n```\nWhich optimization would most effectively improve merge performance with large binary files?",
+            "options": [
+              {
+                "description": "Store binary files directly in the repository without filtering",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Optimize the Git LFS server configuration to handle binary diffing more efficiently",
+                "isAnswerKey": true
+              },
+              {
+                "description": "Encrypt binary files before committing",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Remove Git LFS tracking for images entirely",
+                "isAnswerKey": false
+              }
+            ]
+          },
+          {
+            "id": "494",
+            "skill": "github",
+            "category": "version control",
+            "seniority": "senior",
+            "level": 4,
+            "type": "multiple_choice",
+            "question": "A company's repository history is cluttered with merge commits. Which strategy would simplify future commit history while preserving essential information?",
+            "options": [
+              {
+                "description": "Delete all merge commits retrospectively",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Convert the repository to another version control system",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Continue using merge commits without change",
+                "isAnswerKey": false
+              },
+              {
+                "description": "Switch to rebase-based workflows for feature integration",
+                "isAnswerKey": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "timestamp": "2025-07-09T09:01:52.792922"
+  },
+  "timestamp": "2025-07-09T09:01:52.795202"
+}
