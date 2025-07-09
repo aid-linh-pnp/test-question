@@ -1,0 +1,144 @@
+{
+  "account": "linhpnp2",
+  "skill": "allskills",
+  "final_result": "COMPLETED",
+  "failed": false,
+  "history": {
+    "account": "linhpnp2",
+    "seniority": "fresher",
+    "results": {
+      "html": {
+        "final_result": "LEVELF0",
+        "failed": true,
+        "details": [
+          {
+            "question_id": "115",
+            "question": "Identify the error in the inline style attribute in the following HTML snippet:\n```\n<p style=\"font-weight: bold font-size: 16px;\">Important text</p>\n```",
+            "selected": "font-weight should be written as 'font-weight:bold;'",
+            "correct": "Missing a semicolon between the 'bold' value and 'font-size: 16px;'",
+            "is_correct": false,
+            "skill": "html",
+            "seniority": "fresher",
+            "level": 3
+          },
+          {
+            "question_id": "103",
+            "question": "Review the following snippet. Which of the following HTML tags is self‐closing by default?\n```\n<img src=\"image.png\">\n<div>Content</div>\n<p>Text</p>\n<span>Inline text</span>\n```",
+            "selected": "<p>",
+            "correct": "<img>",
+            "is_correct": false,
+            "skill": "html",
+            "seniority": "fresher",
+            "level": 1
+          }
+        ]
+      },
+      "css": {
+        "final_result": "LEVELF0",
+        "failed": true,
+        "details": [
+          {
+            "question_id": "212",
+            "question": "Consider the use of CSS variables in the following snippet:\n```\n :root {\n   --main-color: #3498db;\n }\n .header {\n   background-color: var(--main-color);\n }\n```\nWhat is the primary benefit of using CSS variables as shown here?",
+            "selected": "They automatically generate vendor prefixes",
+            "correct": "They allow dynamic theming and easier maintenance by centralizing common values",
+            "is_correct": false,
+            "skill": "css",
+            "seniority": "fresher",
+            "level": 3
+          },
+          {
+            "question_id": "205",
+            "question": "What effect does the following CSS rule have?\n```\n h1 {\n   color: blue;\n }\n```",
+            "selected": "Adds a blue border to all h1 elements",
+            "correct": "Changes the text color of all h1 elements to blue",
+            "is_correct": false,
+            "skill": "css",
+            "seniority": "fresher",
+            "level": 1
+          }
+        ]
+      },
+      "javascript": {
+        "final_result": "LEVELF0",
+        "failed": true,
+        "details": [
+          {
+            "question_id": "315",
+            "question": "What does the following function return when passed the array [1, 2, 3, 4, 5]?\n\n```\nfunction filterEven(numbers) {\n  return numbers.filter(num => num % 2 === 0);\n}\nconsole.log(filterEven([1,2,3,4,5]));\n```",
+            "selected": "\"[2,3,4]\"",
+            "correct": "\"[2,4]\"",
+            "is_correct": false,
+            "skill": "javascript",
+            "seniority": "fresher",
+            "level": 3
+          },
+          {
+            "question_id": "303",
+            "question": "The following code snippet has a syntax error. Which option correctly fixes the error?\n\n```\nif(true {\n   console.log(\"Hello\");\n}\n```",
+            "selected": "```if(true) console.log(\"Hello\"){}```",
+            "correct": "```if(true) { console.log(\"Hello\"); }```",
+            "is_correct": false,
+            "skill": "javascript",
+            "seniority": "fresher",
+            "level": 1
+          }
+        ]
+      },
+      "react": {
+        "final_result": "LEVELF0",
+        "failed": true,
+        "details": [
+          {
+            "question_id": "13",
+            "question": "Given the following component, what will be rendered if the user prop is { name: 'Alice', age: 30 }?\n```jsx\nimport React from 'react';\n\nfunction UserInfo({ user }) {\n  const { name, age } = user;\n  return <div>{name} is {age} years old.</div>;\n}\n\nexport default UserInfo;\n```",
+            "selected": "Alice is undefined years old.",
+            "correct": "Alice is 30 years old.",
+            "is_correct": false,
+            "skill": "react",
+            "seniority": "fresher",
+            "level": 3
+          },
+          {
+            "question_id": "3",
+            "question": "Consider the following component. What is the error present in handling props?\n```jsx\nimport React from 'react';\n\nfunction Greeting(props) {\n  return (\n    <div>\n      <p>Hello, {prop.name}</p>\n    </div>\n  );\n}\n\nexport default Greeting;\n```",
+            "selected": "There is no return statement in the component.",
+            "correct": "The code incorrectly refers to 'prop' instead of 'props'.",
+            "is_correct": false,
+            "skill": "react",
+            "seniority": "fresher",
+            "level": 1
+          }
+        ]
+      },
+      "github": {
+        "final_result": "LEVELF0",
+        "failed": true,
+        "details": [
+          {
+            "question_id": "413",
+            "question": "Analyze the following function:\n```\nget_last_commit() {\n  echo $(git log -1 --pretty=%B)\n}\n```\nWhat does the function `get_last_commit` output?",
+            "selected": "The name of the current branch.",
+            "correct": "The full commit message of the latest commit.",
+            "is_correct": false,
+            "skill": "github",
+            "seniority": "fresher",
+            "level": 3
+          },
+          {
+            "question_id": "404",
+            "question": "Review the following command:\n```\ngit clone https://github.com/user/repo.git my_repo\n```\nIn this command, what does the argument 'my_repo' specify?",
+            "selected": "The GitHub username.",
+            "correct": "The local directory name where the repository will be cloned.",
+            "is_correct": false,
+            "skill": "github",
+            "seniority": "fresher",
+            "level": 1
+          }
+        ]
+      }
+    },
+    "timestamp": "2025-07-09T09:06:43.206710"
+  },
+  "timestamp": "2025-07-09T09:06:43.207800"
+}
