@@ -50,9 +50,9 @@ def save_to_github(account: str, skill: str, final_result: str, history: list, f
     res = requests.put(url, headers=headers, json=payload)
 
     if res.status_code in (200, 201):
-        st.success(f"💾 Đã lưu kết quả *{skill}* tại results/{filename}")
+        st.success(f"Đã lưu kết quả *{skill}* tại results/{filename}")
     else:
-        st.error(f"❌ Không thể lưu kết quả *{skill}* lên GitHub. Chi tiết: {res.text}")
+        st.error(f"Không thể lưu kết quả *{skill}* lên GitHub. Chi tiết: {res.text}")
 
 
 def save_result_to_file(account: str, skill: str, result: dict) -> str:
