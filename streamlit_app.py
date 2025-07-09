@@ -627,18 +627,18 @@ if "initialized" not in st.session_state:
 
 if not st.session_state["testing_started"]:
     account = st.text_input("👤 Enter your account:")
-    seniority_choice = st.radio(
-    "Chọn cấp độ bắt đầu:",
-    ["fresher", "junior", "middle", "senior"],
-    horizontal=True,          # hiển thị ngang hàng
-    )    
+    seniority = st.selectbox(
+        "Select the starting seniority level for all skills:",
+        ["fresher", "junior", "middle", "senior"],
+        index=["fresher", "junior", "middle", "senior"].index("middle"),
+    )
 
     if st.button("🚀 Start the assessment"):
         if not account.strip():
             st.warning("❌ Please enter your account.")
         else:
             st.session_state["account"] = account.strip()
-            st.session_state["start_seniority"] = seniority_choice
+            st.session_state["start_seniority"] = seniority
             st.session_state["skills_queue"] = SKILLS.copy()
             st.session_state["testing_started"] = True
             st.rerun()
