@@ -163,11 +163,22 @@ class AdaptiveTestSession:
                 "is_correct": correct,
             }
         )
+        dispatch = {
+            "fresher": self._update_state_after_answer_fresher,
+            "junior":  self._update_state_after_answer_junior,
+            "middle":  self._update_state_after_answer_middle,
+            "senior":  self._update_state_after_answer_senior,
+        }
 
         # Dispatch to the correct branching algorithm
-        if self.starting_seniority == "middle":
-            return self._update_state_after_answer_middle(correct)
-        # Other seniorities are TODO
+        # if self.starting_seniority == "middle":
+        #     return self._update_state_after_answer_middle(correct)
+        # # Other seniorities are TODO
+        # self._finish_test("UNSUPPORTED_SENIORITY", failed=True)
+        # return self._get_result()
+
+        if self.starting_seniority in dispatch:
+            return dispatch[self.starting_seniority](correct)
         self._finish_test("UNSUPPORTED_SENIORITY", failed=True)
         return self._get_result()
 
