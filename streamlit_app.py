@@ -614,7 +614,7 @@ current_skill = st.session_state["current_skill"]
 
 
 if st.session_state["session"] is None:
-    st.header(f"🛠️ Kỹ năng hiện tại: **{current_skill.upper()}**")
+    st.header(f"Kỹ năng hiện tại: **{current_skill.upper()}**")
 
     # ----- CASE 1: LẦN ĐẦU TIÊN (chưa có seniority) -----
     if st.session_state.get("seniority") is None:
