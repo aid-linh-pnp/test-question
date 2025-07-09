@@ -759,7 +759,7 @@ elif st.session_state.app_state == "ask_question":
     session = st.session_state.sessions[skill]
 
     # Nếu skill này xong thì chuyển skill kế / hoặc sang summary
-    if session.finished:
+    if session.is_finished:
         st.session_state.skill_idx += 1
         if st.session_state.skill_idx < len(SKILLS):
             next_skill = SKILLS[st.session_state.skill_idx]
