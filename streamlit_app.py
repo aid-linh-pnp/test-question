@@ -746,13 +746,6 @@ else:
                 "seniority":  q_obj["seniority"],
                 "level":      q_obj["level"],
             })
-        
-        # --- Lưu vào results_per_skill ---
-        st.session_state["results_per_skill"][current_skill] = {
-            "final_result": result_label,
-            "failed": failed_flag,
-            "details": details,                 # <-- chỉ còn 1 khóa gọn gàng
-        }
 
         st.session_state["result_saved"] = True
 
