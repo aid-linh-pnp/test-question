@@ -595,8 +595,6 @@ SKILLS = ["html", "css", "javascript", "react", "github"]
 
 st.set_page_config(page_title="Adaptive Multi‑Skill Quiz", layout="centered")
 st.title("Adaptive Question Demo – FWA.AT")
-st.set_page_config(page_title="Adaptive Multi‑Skill Quiz", layout="centered")
-st.title("Adaptive Question Demo - FWA.AT (Multi‑Skill)")
 st.markdown("<span style='color:green; font-weight:bold;'>Seniority: fresher, junior, middle, senior</span>", unsafe_allow_html=True)
 st.markdown("<span style='color:green; font-weight:bold;'>Mỗi Seniority có 5 cấp độ từ 1 đến 5, với cấp độ 1 là thấp nhất và 5 là cao nhất.</span>", unsafe_allow_html=True)
 st.markdown("<span style='color:green; font-weight:bold;'>Ví dụ: fresher cấp độ 1 là F1, junior cấp độ 2 là J2, ...", unsafe_allow_html=True)
