@@ -50,9 +50,9 @@ def save_to_github(account: str, skill: str, final_result: str, history: list, f
     res = requests.put(url, headers=headers, json=payload)
 
     if res.status_code in (200, 201):
-        st.success(f"💾 Đã lưu kết quả *{skill}* tại results/{filename}")
+        st.success(f"Đã lưu kết quả *{skill}* tại results/{filename}")
     else:
-        st.error(f"❌ Không thể lưu kết quả *{skill}* lên GitHub. Chi tiết: {res.text}")
+        st.error(f"Không thể lưu kết quả *{skill}* lên GitHub. Chi tiết: {res.text}")
 
 
 def save_result_to_file(account: str, skill: str, result: dict) -> str:
@@ -633,9 +633,9 @@ if st.session_state["session"] is None:
         )
 
         # 1.3 Nút Bắt đầu – vẫn cần cho lần đầu
-        if st.button("🚀 Bắt đầu kiểm tra", key="start_btn"):
+        if st.button("Bắt đầu kiểm tra", key="start_btn"):
             if not account.strip():
-                st.warning("❌ Vui lòng nhập account của bạn.")
+                st.warning("Vui lòng nhập account của bạn.")
             else:
                 # Ghi cố định account & seniority
                 st.session_state["account"] = account.strip()
@@ -672,7 +672,7 @@ elif not st.session_state["session"].is_finished:
         session.current_seniority, session.current_level
     )
 
-    st.subheader(f"📌 Câu hỏi mức độ: {level_str} ({current_skill})")
+    st.subheader(f"Câu hỏi mức độ: {level_str} ({current_skill})")
     lang_map = {
         "html": "html",
         "css": "css",
@@ -682,7 +682,7 @@ elif not st.session_state["session"].is_finished:
     }
     lang = lang_map.get(current_skill, "text")
 
-    question_md = format_question_with_code(f"**❓ {question['question']}**", lang)
+    question_md = format_question_with_code(f"❓ {question['question']}**", lang)
     st.markdown(question_md, unsafe_allow_html=True)
 
     for idx, option in enumerate(question["options"]):
@@ -706,8 +706,8 @@ else:
     result_label = session.final_result
     failed_flag = session.failed
 
-    st.success("🎉 Hoàn thành bài kiểm tra cho kỹ năng này!")
-    st.write(f"🏁 Kết quả **{current_skill.upper()}**: **{result_label}**")
+    st.success("Hoàn thành bài kiểm tra cho kỹ năng này!")
+    st.write(f"Kết quả **{current_skill.upper()}**: **{result_label}**")
 
     if not st.session_state["result_saved"]:
         account = st.session_state["account"]
@@ -731,7 +731,12 @@ else:
         # except Exception as e:
         #     st.error(f"❌ Lưu GitHub thất bại: {e}")
 
-        st.session_state["results_per_skill"][current_skill] = result_label
+        st.session_state["results_per_skill"][current_skill] = {
+            "final_result": result_label,
+            "failed": failed_flag,
+            "answer_history": session.answer_history.copy(),
+            "question_history": session.question_history.copy(),   # <-- thêm
+        }
         st.session_state["result_saved"] = True
 
     if st.session_state["skills_queue"]:
@@ -741,7 +746,7 @@ else:
         st.session_state["current_skill"] = None  # Trigger pop in next cycle
         st.rerun()
     else:
-        st.header("📊 Tổng hợp kết quả tất cả kỹ năng")
+        st.header("Tổng hợp kết quả tất cả kỹ năng")
         st.table(st.session_state["results_per_skill"])
             # --- Lưu tổng hợp chỉ 1 lần ---
         if not st.session_state["all_skills_saved"]:
@@ -758,7 +763,7 @@ else:
                 save_to_github(account, "allskills", "COMPLETED", summary, False)
                 st.success("💾 Đã lưu kết quả tổng hợp cho 5 kỹ năng!")
             except Exception as e:
-                st.error(f"❌ Lưu tổng hợp thất bại: {e}")
+                st.error(f"Lưu tổng hợp thất bại: {e}")
 
             st.session_state["all_skills_saved"] = True
 
