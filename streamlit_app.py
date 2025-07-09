@@ -56,9 +56,9 @@ def save_to_github(account: str, skill: str, final_result: str, history: list, f
     res = requests.put(url, headers=headers, json=payload)
 
     if res.status_code in (200, 201):
-        st.toast(f"💾 Đã lưu kết quả *{skill}* tại results/{filename}")
+        st.toast(f"💾 Saved the result for *{skill}* in results/{filename}")
     else:
-        st.error(f"❌ Không thể lưu kết quả lên GitHub. Chi tiết: {res.text}")
+        st.error(f"❌ Failed to save the summary result. Detail: {res.text}")
 
 
 def save_result_to_file(account: str, skill: str, result: dict) -> str:
@@ -594,7 +594,7 @@ class AdaptiveTestSession:
 SKILLS = ["html", "css", "javascript", "react", "github"]
 
 st.set_page_config(page_title="Adaptive Multi‑Skill Quiz", layout="centered")
-st.title("Adaptive Question Demo – FWA.AT (Auto 5‑Skill Run)")
+st.title("Adaptive Question Demo – FWA.AT")
 
 # --------------------------------- Load questions ------------------------- #
 
@@ -623,17 +623,16 @@ if "initialized" not in st.session_state:
 # -----------------------  STEP 0 – Start full test  ------------------------ #
 
 if not st.session_state["testing_started"]:
-    st.header("🔑 Khởi động bài kiểm tra 5 kỹ năng")
-    account = st.text_input("👤 Nhập account của bạn:")
+    account = st.text_input("👤 Enter your account:")
     seniority = st.selectbox(
-        "Chọn cấp độ bắt đầu cho tất cả kỹ năng:",
+        "Select the starting seniority level for all skills:",
         ["fresher", "junior", "middle", "senior"],
         index=["fresher", "junior", "middle", "senior"].index("middle"),
     )
 
-    if st.button("🚀 Bắt đầu bài kiểm tra 5 kỹ năng"):
+    if st.button("🚀 Start the assessment"):
         if not account.strip():
-            st.warning("❌ Vui lòng nhập account của bạn.")
+            st.warning("❌ Please enter your account.")
         else:
             st.session_state["account"] = account.strip()
             st.session_state["start_seniority"] = seniority
@@ -650,7 +649,7 @@ else:
 
     # If no skills left → show summary & save once
     if st.session_state["current_skill"] is None and not st.session_state["skills_queue"]:
-        st.header("📊 Tổng hợp kết quả 5 kỹ năng")
+        st.header("📊 Summary of results for all 5 skills")
         st.table(st.session_state["overall_results"])
 
         if not st.session_state["overall_saved"]:
@@ -672,7 +671,7 @@ else:
                 st.error(f"❌ Không thể lưu kết quả tổng hợp: {e}")
 
         # Offer restart
-        if st.button("🔄 Làm lại từ đầu"):
+        if st.button("🔄 Start over"):
             for k in list(st.session_state.keys()):
                 del st.session_state[k]
             st.rerun()
@@ -684,7 +683,7 @@ else:
 
         # Create session for this skill if needed
         if session is None:
-            st.header(f"🛠️ Kỹ năng hiện tại: **{current_skill.upper()}**")
+            st.header(f"🛠️ Current skill: **{current_skill.upper()}**")
             session = AdaptiveTestSession(
                 engine=st.session_state["engine"],
                 skill=current_skill,
@@ -699,7 +698,7 @@ else:
             level_str = AdaptiveTestingEngine.format_level_string(
                 session.current_seniority, session.current_level
             )
-            st.subheader(f"📌 Câu hỏi mức độ: {level_str} ({current_skill})")
+            st.subheader(f"📌 Question level: {level_str} ({current_skill})")
             lang_map = {
                 "html": "html",
                 "css": "css",
@@ -724,7 +723,7 @@ else:
 
         # Session finished – store & move on automatically -----------------
         else:
-            st.toast(f"🎉 Hoàn thành **{current_skill.upper()}** – kết quả: {session.final_result}")
+            st.toast(f"🎉 Completed **{current_skill.upper()}** – result: {session.final_result}")
             # Aggregate results
             st.session_state["overall_results"][current_skill] = session.final_result
             st.session_state["overall_details"].append(
