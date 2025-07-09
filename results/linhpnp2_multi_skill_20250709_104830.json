@@ -1,0 +1,155 @@
+{
+  "account": "linhpnp2",
+  "skill": "multi_skill",
+  "final_result": "html:LEVELM5 | css:LEVELJ4 | javascript:LEVELM4 | react:LEVELM1 | github:LEVELJ1",
+  "failed": false,
+  "history": {
+    "account": "linhpnp2",
+    "results": [
+      {
+        "skill": "html",
+        "final_result": "LEVELM5",
+        "failed": false,
+        "answer_history": [
+          {
+            "question_id": "161",
+            "selected_index": 1,
+            "is_correct": true
+          },
+          {
+            "question_id": "171",
+            "selected_index": 2,
+            "is_correct": true
+          },
+          {
+            "question_id": "187",
+            "selected_index": 0,
+            "is_correct": false
+          },
+          {
+            "question_id": "179",
+            "selected_index": 0,
+            "is_correct": false
+          }
+        ]
+      },
+      {
+        "skill": "css",
+        "final_result": "LEVELJ4",
+        "failed": false,
+        "answer_history": [
+          {
+            "question_id": "262",
+            "selected_index": 1,
+            "is_correct": false
+          },
+          {
+            "question_id": "253",
+            "selected_index": 1,
+            "is_correct": false
+          },
+          {
+            "question_id": "240",
+            "selected_index": 1,
+            "is_correct": true
+          },
+          {
+            "question_id": "246",
+            "selected_index": 1,
+            "is_correct": false
+          },
+          {
+            "question_id": "241",
+            "selected_index": 1,
+            "is_correct": true
+          }
+        ]
+      },
+      {
+        "skill": "javascript",
+        "final_result": "LEVELM4",
+        "failed": false,
+        "answer_history": [
+          {
+            "question_id": "365",
+            "selected_index": 2,
+            "is_correct": true
+          },
+          {
+            "question_id": "372",
+            "selected_index": 2,
+            "is_correct": false
+          },
+          {
+            "question_id": "367",
+            "selected_index": 0,
+            "is_correct": true
+          }
+        ]
+      },
+      {
+        "skill": "react",
+        "final_result": "LEVELM1",
+        "failed": false,
+        "answer_history": [
+          {
+            "question_id": "64",
+            "selected_index": 0,
+            "is_correct": false
+          },
+          {
+            "question_id": "51",
+            "selected_index": 1,
+            "is_correct": true
+          },
+          {
+            "question_id": "56",
+            "selected_index": 2,
+            "is_correct": false
+          }
+        ]
+      },
+      {
+        "skill": "github",
+        "final_result": "LEVELJ1",
+        "failed": false,
+        "answer_history": [
+          {
+            "question_id": "464",
+            "selected_index": 1,
+            "is_correct": false
+          },
+          {
+            "question_id": "451",
+            "selected_index": 2,
+            "is_correct": false
+          },
+          {
+            "question_id": "440",
+            "selected_index": 1,
+            "is_correct": false
+          },
+          {
+            "question_id": "429",
+            "selected_index": 2,
+            "is_correct": true
+          },
+          {
+            "question_id": "434",
+            "selected_index": 1,
+            "is_correct": false
+          }
+        ]
+      }
+    ],
+    "summary": {
+      "html": "LEVELM5",
+      "css": "LEVELJ4",
+      "javascript": "LEVELM4",
+      "react": "LEVELM1",
+      "github": "LEVELJ1"
+    },
+    "timestamp": "2025-07-09T03:48:30.101804"
+  },
+  "timestamp": "2025-07-09T10:48:30.103397+07:00"
+}
