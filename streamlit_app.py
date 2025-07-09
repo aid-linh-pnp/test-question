@@ -596,8 +596,8 @@ SKILLS = ["html", "css", "javascript", "react", "github"]
 st.set_page_config(page_title="Adaptive Multi‑Skill Quiz", layout="centered")
 st.title("Adaptive Question Demo – FWA.AT")
 st.markdown("<span style='color:green; font-weight:bold;'>Seniority: fresher, junior, middle, senior</span>", unsafe_allow_html=True)
-st.markdown("<span style='color:green; font-weight:bold;'>Mỗi Seniority có 5 cấp độ từ 1 đến 5, với cấp độ 1 là thấp nhất và 5 là cao nhất.</span>", unsafe_allow_html=True)
-st.markdown("<span style='color:green; font-weight:bold;'>Ví dụ: fresher cấp độ 1 là F1, junior cấp độ 2 là J2, ...", unsafe_allow_html=True)
+st.markdown("<span style='color:green; font-weight:bold;'>Mỗi Seniority (fresher, junior, middle, senior) có 5 cấp độ từ 1 đến 5, với cấp độ 1 là thấp nhất và 5 là cao nhất.</span>", unsafe_allow_html=True)
+st.markdown("<span style='color:green; font-weight:bold;'>Ví dụ: fresher cấp độ 1 là F1, fresher cấp độ 2 là F2, ...", unsafe_allow_html=True)
 
 # --------------------------------- Load questions ------------------------- #
 
@@ -627,11 +627,11 @@ if "initialized" not in st.session_state:
 
 if not st.session_state["testing_started"]:
     account = st.text_input("👤 Enter your account:")
-    seniority = st.selectbox(
-        "Select the starting seniority level for all skills:",
-        ["fresher", "junior", "middle", "senior"],
-        index=["fresher", "junior", "middle", "senior"].index("middle"),
-    )
+    seniority_choice = st.radio(
+    "Chọn cấp độ bắt đầu:",
+    ["fresher", "junior", "middle", "senior"],
+    horizontal=True,          # hiển thị ngang hàng
+    )    
 
     if st.button("🚀 Start the assessment"):
         if not account.strip():
