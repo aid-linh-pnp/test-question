@@ -1,0 +1,19 @@
+{
+  "account": "haodv3",
+  "skill": "allskills",
+  "final_result": "COMPLETED",
+  "failed": false,
+  "history": {
+    "account": "haodv3",
+    "seniority": "fresher",
+    "results": {
+      "html": "LEVELJ5",
+      "css": "LEVELJ5",
+      "javascript": "LEVELJ5",
+      "react": "LEVELJ5",
+      "github": "LEVELJ5"
+    },
+    "timestamp": "2025-07-14T07:37:00.605258"
+  },
+  "timestamp": "2025-07-14T07:37:00.605974"
+}
