@@ -1,0 +1,19 @@
+{
+  "account": "ThachD",
+  "skill": "allskills",
+  "final_result": "COMPLETED",
+  "failed": false,
+  "history": {
+    "account": "ThachD",
+    "seniority": "middle",
+    "results": {
+      "html": "LEVELS2",
+      "css": "LEVELM2",
+      "javascript": "LEVELM5",
+      "react": "LEVELS5",
+      "github": "LEVELS5"
+    },
+    "timestamp": "2025-07-14T07:54:20.423149"
+  },
+  "timestamp": "2025-07-14T07:54:20.428848"
+}
