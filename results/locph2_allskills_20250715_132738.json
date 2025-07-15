@@ -1,0 +1,19 @@
+{
+  "account": "locph2",
+  "skill": "allskills",
+  "final_result": "COMPLETED",
+  "failed": false,
+  "history": {
+    "account": "locph2",
+    "seniority": "fresher",
+    "results": {
+      "html": "LEVELF4",
+      "css": "LEVELF1",
+      "javascript": "LEVELF3",
+      "react": "LEVELF4",
+      "github": "LEVELF4"
+    },
+    "timestamp": "2025-07-15T06:27:38.103750"
+  },
+  "timestamp": "2025-07-15T06:27:38.104486"
+}
