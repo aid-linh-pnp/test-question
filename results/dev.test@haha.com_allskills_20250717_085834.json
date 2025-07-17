@@ -1,0 +1,19 @@
+{
+  "account": "dev.test@haha.com",
+  "skill": "allskills",
+  "final_result": "COMPLETED",
+  "failed": false,
+  "history": {
+    "account": "dev.test@haha.com",
+    "seniority": "fresher",
+    "results": {
+      "html": "LEVELF2",
+      "css": "LEVELF3",
+      "javascript": "LEVELJ1",
+      "react": "LEVELF2",
+      "github": "LEVELF1"
+    },
+    "timestamp": "2025-07-17T01:58:34.278790"
+  },
+  "timestamp": "2025-07-17T01:58:34.280111"
+}
